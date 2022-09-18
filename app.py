@@ -5,14 +5,13 @@ from flask_restful import Api
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
-from resources.errors import errors
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 app.config.from_pyfile('settings.py')
 
-api = Api(app, errors=errors)
+api = Api(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
     
