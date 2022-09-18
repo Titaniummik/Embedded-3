@@ -30,7 +30,7 @@ class HumidityApi(Resource):
             humidity = Humidity.objects.get(id=id).to_json()
             return Response(humidity, mimetype="application/json", status=200)
         except Exception as e:
-            return f"An Error Orccured: {e}", 500
+            return "An unexpected error has occurred", 500
 
     @jwt_required()
     def put(self, id):
