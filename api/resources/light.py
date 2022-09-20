@@ -1,6 +1,6 @@
 from flask import Response, request
 from flask_restful import Resource
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from database.models import Light
 from mongoengine.errors import FieldDoesNotExist
 
@@ -16,7 +16,7 @@ class LightsApi(Resource):
     def post(self):  
         try:
             body = request.get_json()
-            light = Light(**body).save()
+            light = Light(**body, user=get_jwt_identity()).save()
             return {'id': str(light.id)}, 200
         
         except FieldDoesNotExist as e:

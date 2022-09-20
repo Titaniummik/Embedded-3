@@ -1,6 +1,6 @@
 from flask import Response, request
 from flask_restful import Resource
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from database.models import Temperature
 from mongoengine.errors import FieldDoesNotExist
 
@@ -30,7 +30,7 @@ class TemperaturesApi(Resource):
                 c = (f - 32)  / 1.8
                 body.pop("fahrenheit")
                 
-            temperature = Temperature(**body, fahrenheit=f, celcius=c).save()
+            temperature = Temperature(**body, fahrenheit=f, celcius=c, user=get_jwt_identity()).save()
             return {'id': str(temperature.id)}, 200
         
         except FieldDoesNotExist as e:
