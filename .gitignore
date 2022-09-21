@@ -57,3 +57,4 @@ yarn-error.log
 # DB config data
 /backend/config/options.js
 *.pyc
+api/.env
